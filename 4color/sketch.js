@@ -5,11 +5,14 @@ const COLORS = {
   RED: "red",
 }
 
+const ASPECT_RATIO = [4, 3];
+
 let graphArray = {};
 let stateArray = {};
 let imageArray = {};
 
 let arrow;
+let font;
 
 let timer;
 
@@ -27,37 +30,48 @@ let sel;
 let div;
 
 function preload() {
-  Object.entries(graph).forEach(([key, value]) => {
-    imageArray[key] = loadImage(`${key}.png`);
+  Object.entries(graph).forEach(([key]) => {
+    imageArray[key] = loadImage(`assets/${key}.png`);
   });
 
-  arrow = loadImage("arrow.png");
+  arrow = loadImage("assets/arrow.png");
+  font = loadFont("assets/vazir.ttf");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  
+
   csp = new CSP();
 
   div = createDiv('');
-  div.style('width', '220px');
-  div.style('height', '80px');
+  div.style('width', '260px');
+  div.style('height', '95px');
   div.style('background-color', '#00000020');
 
-  prev = createButton('prev');
+  prev = createButton('قبلی');
+  prev.style('font-family', 'vazir');
+  prev.style('font-size', '13px');
   prev.mousePressed(prevState);
   pause = createButton('⏸️');
   pause.mousePressed(pauseCallback);
   play = createButton('▶️');
   play.mousePressed(playCallback);
-  next = createButton('next');
+  next = createButton('بعدی');
+  next.style('font-family', 'vazir');
+  next.style('font-size', '13px');
   next.mousePressed(nextState);
-
-  mrv = createCheckbox('MRV', true);
+  
+  mrv = createCheckbox('انتخاب ترسناک‌ترین متغیر', true);
+  mrv.style('font-family', 'vazir');
+  mrv.style('font-size', '13px');
   mrv.changed(mrvChanged);
-  lcv = createCheckbox('LCV', true);
+  lcv = createCheckbox('انتخاب بی‌دردسر‌ترین مقدار', true);
+  lcv.style('font-family', 'vazir');
+  lcv.style('font-size', '13px');
   lcv.changed(lcvChanged);
   sel = createSelect();
+  sel.style('font-family', 'vazir');
+  sel.style('font-size', '13px');
   sel.changed(mySelectEvent);
 
   Object.entries(graph).forEach(([key, value]) => {
@@ -69,7 +83,7 @@ function setup() {
       g.addEdge(e[0], e[1]);
     });
     graphArray[key] = g;
-    let s = csp.solve(g, mrv.checked(), lcv.checked());
+    let s = csp.solve(g, lcv.checked(), lcv.checked());
     stateArray[key] = s;
     sel.option(key);
   });
@@ -89,21 +103,20 @@ function draw() {
   fill('black');
   textSize(16);
   textAlign("center");
-  text(state + 1, windowWidth - 108, 28);
+  text(state + 1, windowWidth - 128, 28);
 
-
-
-  prev.position(windowWidth - 206, 10);
-  pause.position(windowWidth - 160, 10);
-  play.position(windowWidth - 95, 10);
+  prev.position(windowWidth - 246, 10);
+  pause.position(windowWidth - 190, 10);
+  play.position(windowWidth - 105, 10);
   next.position(windowWidth - 56, 10);
-  mrv.position(windowWidth - 210, 45);
-  lcv.position(windowWidth - 150, 45);
-  sel.position(windowWidth - 80, 40);
-  div.position(windowWidth - 220, 0);
+  mrv.position(windowWidth - 250, 45);
+  lcv.position(windowWidth - 250, 65);
+  sel.position(windowWidth - 80, 45);
+  div.position(windowWidth - 260, 0);
 }
 
 function mySelectEvent() {
+  clearInterval(timer);
   map = sel.value();
   state = 0;
 }
@@ -134,6 +147,9 @@ function playCallback() {
   timer = setInterval(() => {
     if (state < stateArray[map].length - 1) {
       state++;
+    }
+    else {
+      clearInterval(timer)
     }
   }, 500)
 }
@@ -200,10 +216,12 @@ class GraphState {
         line((node.pos.x * windowWidth), (node.pos.y * windowHeight), (node2.pos.x * windowWidth), (node2.pos.y * windowHeight));
       });
     });
+    const nodeDiameter = windowHeight * windowWidth / 40000 + 10;
     this.nodes.forEach(node => {
       fill(node.color === "" ? 'white' : node.color);
-      circle((node.pos.x * windowWidth), (node.pos.y * windowHeight), 30);
+      circle((node.pos.x * windowWidth), (node.pos.y * windowHeight), nodeDiameter);
     })
+    const domainDiameter = windowHeight * windowWidth / 160000 + 5;
     this.domains.forEach((domain, i) => {
       const node = this.nodes[i];
       if (node.color !== "") {
@@ -211,12 +229,16 @@ class GraphState {
       }
       domain.forEach((color, i) => {
         fill(color);
-        circle((node.pos.x * windowWidth) + 10 * (i - 1.5), (node.pos.y * windowHeight) + 20, 10);
+        circle((node.pos.x * windowWidth) + domainDiameter * (i - (Object.entries(COLORS).length - 1)/2), (node.pos.y * windowHeight) + nodeDiameter / 2 + domainDiameter / 2, domainDiameter);
       });
     });
+    const arrowDiameter = windowHeight * windowWidth / 160000 + 5;
     if (this.nextNode) {
       noTint();
-      image(arrow, (this.nextNode.pos.x * windowWidth) - 10, (this.nextNode.pos.y * windowHeight) - 45, 20, 30);
+      document.getElementById("arrow").style.left = `${(this.nextNode.pos.x * windowWidth) - arrowDiameter}px`;
+      document.getElementById("arrow").style.top = `${(this.nextNode.pos.y * windowHeight) - nodeDiameter / 2 - 3 * arrowDiameter}px`;
+      document.getElementById("arrow").style.width = `${2 * arrowDiameter}px`;
+      document.getElementById("arrow").style.height = `${3 * arrowDiameter}px`;
     }
   }
 }

@@ -1,6 +1,7 @@
 html, body {
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 canvas {
@@ -16,8 +17,14 @@ button {
 }
 
 select {
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-right: 8px;
-  padding-left: 8px;
+  padding: 8px;
+}
+
+#arrow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0px;
+  height: 0px;
+  transition: all 0.3s ease;
 }

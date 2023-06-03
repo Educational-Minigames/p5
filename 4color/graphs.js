@@ -1,5 +1,5 @@
 const graph = {
-    "iran": {
+    "ایران": {
         "points": [
             [
                 0.8375,
@@ -689,7 +689,7 @@ const graph = {
             ]
         ]
     },
-    "spain": {
+    "اسپانیا": {
         "points": [
             [
                 0.6175,
