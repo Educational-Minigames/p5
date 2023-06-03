@@ -6,3 +6,18 @@ html, body {
 canvas {
   display: block;
 }
+
+button {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 8px;
+  padding-left: 8px;
+  line-height: 1rem;
+}
+
+select {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-right: 8px;
+  padding-left: 8px;
+}
