@@ -14,7 +14,7 @@ let imageArray = {};
 let arrow;
 let font;
 
-let timer;
+let timer = [];
 
 let maxState;
 let state;
@@ -85,14 +85,13 @@ function setup() {
     });
     g.shuffle();
     graphArray[key] = g;
-    let s = csp.solve(g, lcv.checked(), lcv.checked());
-    stateArray[key] = s;
     sel.option(key);
   });
 
   state = 0;
   maxState = false;
   map = Object.entries(graph)[0][0];
+  stateArray[map] = csp.solve(graphArray[map], mrv.checked(), lcv.checked());
 }
 
 function draw() {
@@ -119,8 +118,12 @@ function draw() {
 }
 
 function mySelectEvent() {
-  clearInterval(timer);
+  for (let i = 0; i < timer.length; i++)
+    clearInterval(timer[i]);
+
+  timer = [];
   map = sel.value();
+  stateArray[map] = csp.solve(graphArray[map], mrv.checked(), lcv.checked());
   state = 0;
 }
 
@@ -137,28 +140,36 @@ function prevState() {
 }
 
 function mrvChanged() {
+  for (let i = 0; i < timer.length; i++)
+    clearInterval(timer[i]);
+
+  timer = [];
   stateArray[map] = csp.solve(graphArray[map], mrv.checked(), lcv.checked());
   state = 0;
 }
 
 function lcvChanged() {
+  for (let i = 0; i < timer.length; i++)
+    clearInterval(timer[i]);
+
+  timer = [];
   stateArray[map] = csp.solve(graphArray[map], mrv.checked(), lcv.checked());
   state = 0;
 }
 
 function playCallback() {
-  timer = setInterval(() => {
+  timer.push(setInterval(() => {
     if (state < stateArray[map].length - 1) {
       state++;
     }
-    else {
-      clearInterval(timer)
-    }
-  }, 500)
+  }, 500))
 }
 
 function pauseCallback() {
-  clearInterval(timer);
+  for (let i = 0; i < timer.length; i++)
+    clearInterval(timer[i]);
+
+  timer = [];
 }
 
 function windowResized() {
@@ -166,11 +177,13 @@ function windowResized() {
 }
 
 class Node {
-  constructor(x, y, adj) {
+  constructor(x, y, adj, domain, color) {
     this.pos = createVector(x, y);
     this.adj = adj || [];
-    this.color = "";
+    this.domain = domain || Object.values(COLORS).sort(() => Math.random() - 0.5);
+    this.color = color || "";
   }
+
 
   addNeighbor(id) {
     this.adj.push(id);
@@ -218,8 +231,7 @@ class Graph {
 
 class GraphState {
   constructor(graph, nextNode) {
-    this.nodes = graph.nodes.map(node => new Node(node.pos.x, node.pos.y, node.adj));
-    this.nodes.forEach((node, i) => node.setColor(graph.nodes[i].color));
+    this.nodes = graph.nodes.map(node => new Node(node.pos.x, node.pos.y, node.adj, node.domain, node.color));
     this.domains = this.nodes.map(node => csp.findNodeDomain(node, graph));
     this.nextNode = nextNode;
   }
@@ -242,9 +254,13 @@ class GraphState {
       if (node.color !== "") {
         return;
       }
-      domain.forEach((color, i) => {
-        fill(color);
-        circle((node.pos.x * windowWidth) + domainDiameter * (i - (Object.entries(COLORS).length - 1) / 2), (node.pos.y * windowHeight) + nodeDiameter / 2 + domainDiameter / 2, domainDiameter);
+      Object.values(COLORS).filter(color => domain.includes(color)).forEach((color, j) => {
+          fill(color);
+          circle(
+            (node.pos.x * windowWidth) + domainDiameter * (j - (domain.length - 1) / 2),
+            (node.pos.y * windowHeight) + nodeDiameter / 2 + domainDiameter / 2,
+            domainDiameter
+          );
       });
     });
     const arrowDiameter = windowHeight * windowWidth / 160000 + 5;
@@ -272,19 +288,9 @@ class CSP {
   }
 
   findNodeDomain(node, graph) {
-    const domain = Object.values(COLORS);
     const neighbors = node.adj.map(id => graph.nodes[id]);
     const neighborColors = neighbors.map(node => node.color);
-    return domain.filter(color => !neighborColors.includes(color));
-  }
-
-  shuffleDomain(domain) {
-    // Shuffle the domain order
-    for (let i = domain.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [domain[i], domain[j]] = [domain[j], domain[i]];
-    }
-    return domain;
+    return node.domain.filter(color => !neighborColors.includes(color));
   }
 
   backtrack(graph, mrv, lcv) {
@@ -294,7 +300,7 @@ class CSP {
       return true;
     }
     const node = mrv ? this.MRV(graph) : graph.nodes.find(node => node.color === "");
-    const domain = lcv ? this.LCV(graph, node) : this.shuffleDomain(this.findNodeDomain(node, graph));
+    const domain = lcv ? this.LCV(graph, node) : this.findNodeDomain(node, graph);
 
     for (let i = 0; i < domain.length; i++) {
       node.removeColor();
