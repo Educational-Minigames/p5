@@ -16,6 +16,7 @@ let font;
 
 let timer;
 
+let maxState;
 let state;
 let map;
 let csp;
@@ -60,7 +61,7 @@ function setup() {
   next.style('font-family', 'vazir');
   next.style('font-size', '13px');
   next.mousePressed(nextState);
-  
+
   mrv = createCheckbox('انتخاب ترسناک‌ترین متغیر', true);
   mrv.style('font-family', 'vazir');
   mrv.style('font-size', '13px');
@@ -82,6 +83,7 @@ function setup() {
     value.edges.forEach((e) => {
       g.addEdge(e[0], e[1]);
     });
+    g.shuffle();
     graphArray[key] = g;
     let s = csp.solve(g, lcv.checked(), lcv.checked());
     stateArray[key] = s;
@@ -89,6 +91,7 @@ function setup() {
   });
 
   state = 0;
+  maxState = false;
   map = Object.entries(graph)[0][0];
 }
 
@@ -103,11 +106,11 @@ function draw() {
   fill('black');
   textSize(16);
   textAlign("center");
-  text(state + 1, windowWidth - 128, 28);
+  text(`${state + 1}/${maxState ? "!!!" : stateArray[map].length}`, windowWidth - 128, 28);
 
   prev.position(windowWidth - 246, 10);
-  pause.position(windowWidth - 190, 10);
-  play.position(windowWidth - 105, 10);
+  pause.position(windowWidth - 195, 10);
+  play.position(windowWidth - 100, 10);
   next.position(windowWidth - 56, 10);
   mrv.position(windowWidth - 250, 45);
   lcv.position(windowWidth - 250, 65);
@@ -199,6 +202,18 @@ class Graph {
   reset() {
     this.nodes.forEach(node => node.removeColor());
   }
+
+  shuffle() {
+    // Shuffle the node order
+    for (let i = this.nodes.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [this.nodes[i], this.nodes[j]] = [this.nodes[j], this.nodes[i]];
+      for (let k = 0; k < this.nodes.length; k++) {
+        this.nodes[k].adj = this.nodes[k].adj.map(id => id === i ? j : id === j ? i : id);
+      }
+    }
+  }
+
 }
 
 class GraphState {
@@ -229,7 +244,7 @@ class GraphState {
       }
       domain.forEach((color, i) => {
         fill(color);
-        circle((node.pos.x * windowWidth) + domainDiameter * (i - (Object.entries(COLORS).length - 1)/2), (node.pos.y * windowHeight) + nodeDiameter / 2 + domainDiameter / 2, domainDiameter);
+        circle((node.pos.x * windowWidth) + domainDiameter * (i - (Object.entries(COLORS).length - 1) / 2), (node.pos.y * windowHeight) + nodeDiameter / 2 + domainDiameter / 2, domainDiameter);
       });
     });
     const arrowDiameter = windowHeight * windowWidth / 160000 + 5;
@@ -263,22 +278,36 @@ class CSP {
     return domain.filter(color => !neighborColors.includes(color));
   }
 
+  shuffleDomain(domain) {
+    // Shuffle the domain order
+    for (let i = domain.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [domain[i], domain[j]] = [domain[j], domain[i]];
+    }
+    return domain;
+  }
+
   backtrack(graph, mrv, lcv) {
     if (graph.nodes.every(node => node.color !== "")) {
       this.states.push(new GraphState(graph));
+      maxState = false;
       return true;
     }
     const node = mrv ? this.MRV(graph) : graph.nodes.find(node => node.color === "");
-    const domain = lcv ? this.LCV(graph, node) : this.findNodeDomain(node, graph);
+    const domain = lcv ? this.LCV(graph, node) : this.shuffleDomain(this.findNodeDomain(node, graph));
 
     for (let i = 0; i < domain.length; i++) {
       node.removeColor();
       this.states.push(new GraphState(graph, node));
       node.setColor(domain[i]);
+      if (this.states.length > 1000) {
+        maxState = true;
+        return false;
+      }
       const result = this.backtrack(graph, mrv, lcv);
 
       if (result) {
-        return result;
+        return true;
       }
     }
     if (domain.length > 0) {
