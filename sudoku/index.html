@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script defer src="sketch.js"></script>
+</head>
+
+<body>
+  <div style="display: flex; align-items: center; justify-content: center; height: 100%; background-color: grey;">
+    <div class="container">
+      <div id="sudoku" class="sudoku-container">
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+        <div class="sudoku-item" inputmode="numeric"></div>
+      </div>
+      <div id="mask" class="sudoku-mask">
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+        <div class="mask-item"></div>
+      </div>
+      <div id="panel" class="panel">
+        <h1>سودوکو</h1>
+        <div class="panel-item">
+          <div style="font-size: 30px;">
+            <label>
+              <input id="conflict" type="checkbox">
+              <span>مغـایـــرت‌ها</span>
+            </label>
+          </div>
+          <div style="font-size: 25px;">
+            <label>
+              <input id="domain" type="checkbox">
+              <span>ارقام امکان پذیر</span>
+            </label>
+          </div>
+          <div style="font-size: 30px;">
+            <label>
+              <input id="help" type="checkbox">
+              <span>راهنمــایــــی</span>
+            </label>
+          </div>
+          <div style="font-size: 30px;" id="reset">
+            <button>شروع دوباره</button>
+          </div>
+        </div>
+        <img src="../assets/kamva.png" alt="kamva" width="120px" height="150px">
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

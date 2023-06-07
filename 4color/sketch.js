@@ -28,7 +28,6 @@ let prev;
 let mrv;
 let lcv;
 let sel;
-let div;
 
 function preload() {
   Object.entries(graph).forEach(([key]) => {
@@ -36,18 +35,13 @@ function preload() {
   });
 
   arrow = loadImage("assets/arrow.png");
-  font = loadFont("assets/vazir.ttf");
+  font = loadFont("../assets/vazir.ttf");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
   csp = new CSP();
-
-  div = createDiv('');
-  div.style('width', '260px');
-  div.style('height', '95px');
-  div.style('background-color', '#00000020');
 
   prev = createButton('قبلی');
   prev.style('font-family', 'vazir');
@@ -105,16 +99,15 @@ function draw() {
   fill('black');
   textSize(16);
   textAlign("center");
-  text(`${state + 1}/${maxState ? "!!!" : stateArray[map].length}`, windowWidth - 128, 28);
+  text(`${state + 1}/${maxState ? "!!!" : stateArray[map].length}`, windowWidth - 128, 108);
 
-  prev.position(windowWidth - 246, 10);
-  pause.position(windowWidth - 195, 10);
-  play.position(windowWidth - 100, 10);
-  next.position(windowWidth - 56, 10);
-  mrv.position(windowWidth - 250, 45);
-  lcv.position(windowWidth - 250, 65);
-  sel.position(windowWidth - 80, 45);
-  div.position(windowWidth - 260, 0);
+  prev.position(windowWidth - 246, 90);
+  pause.position(windowWidth - 195, 90);
+  play.position(windowWidth - 100, 90);
+  next.position(windowWidth - 56, 90);
+  mrv.position(windowWidth - 250, 125);
+  lcv.position(windowWidth - 250, 145);
+  sel.position(windowWidth - 80, 125);
 }
 
 function mySelectEvent() {
