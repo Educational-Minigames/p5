@@ -58,7 +58,7 @@ for (let i = 0; i < 9; i++) {
 
     if (numbers[i][j] !== 0) {
       item.innerHTML = numbers[i][j]
-      item.style.backgroundColor = "transparent"
+      item.style.removeProperty('background-color');
     }
     else {
       item.style.color = "#1976d2"
@@ -166,7 +166,7 @@ function printConflicts(numbers) {
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
       let item = mask.children.item(i * 9 + j);
-      item.style.backgroundColor = "transparent";
+      item.style.removeProperty('background-color');;
     }
   }
 
@@ -241,7 +241,7 @@ function printHelp() {
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
       let item = sudoku.children.item(i * 9 + j);
-      item.style.backgroundColor = "transparent";
+      item.style.removeProperty('background-color');
     }
   }
 
