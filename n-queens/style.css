@@ -1,0 +1,82 @@
+@font-face {
+  font-family: "vazir";
+  src: url("../assets/vazir.ttf");
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: grey;
+}
+
+main {
+  display: flex;
+  flex-direction: row-reverse;
+  /* align-items: center; */
+  justify-content: center;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+h1 {
+  font-family: "vazir";
+  text-align: center;
+  margin: 0;
+}
+
+canvas {
+  display: block;
+}
+
+button {
+  font-size: 20px;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  border: none;
+  font-family: "vazir";
+  background-color: #1976d2;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1rem;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media screen and (min-aspect-ratio: 4/3) and (max-height: 900px) {
+  main {
+    scale: 0.6;
+  }
+}
+
+@media screen and (min-aspect-ratio: 4/3) and (max-height: 500px) {
+  main {
+    scale: 0.3;
+  }
+}
+
+@media screen and (max-aspect-ratio: 4/3) and (max-width: 1000px) {
+  main {
+    scale: 0.6;
+  }
+}
+
+@media screen and (max-aspect-ratio: 4/3) and (max-width: 600px) {
+  main {
+    scale: 0.3;
+  }
+}

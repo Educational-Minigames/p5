@@ -11,7 +11,6 @@ let graphArray = {};
 let stateArray = {};
 let imageArray = {};
 
-let arrow;
 let font;
 
 let timer = [];
@@ -34,7 +33,6 @@ function preload() {
     imageArray[key] = loadImage(`assets/${key}.png`);
   });
 
-  arrow = loadImage("assets/arrow.png");
   font = loadFont("../assets/vazir.ttf");
 }
 
