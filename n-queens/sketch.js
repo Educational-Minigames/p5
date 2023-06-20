@@ -14,13 +14,27 @@ function preload() {
   // errorSound = loadSound('error.wav');
 }
 
+let windowScale;
+
+window.onload = function () {
+  windowScale = window.getComputedStyle(document.getElementById('main'), null).getPropertyValue('scale');
+  windowScale = windowScale === "none" ? 1 : windowScale;
+}
+
+function windowResized() {
+  windowScale = window.getComputedStyle(document.getElementById('main'), null).getPropertyValue('scale');
+  windowScale = windowScale === "none" ? 1 : windowScale;
+  board.setScale(windowScale);
+}
+
 function setup() {
   n = 8;
   blockSize = 80;
   showRay = false;
+  piecePicked = false;
   fixed = [[4, 0], [1, 1], [3, 2], [6, 3]];
   createCanvas((n + 1) * blockSize, n * blockSize);
-  board = new Board(n, blockSize, fixed);
+  board = new Board(n, blockSize, windowScale, fixed);
   select('#reset').mousePressed(() => {
     moveSound.play();
     board.reset();
@@ -42,7 +56,6 @@ function draw() {
   textAlign(CENTER);
   // rect(blockSize*n, 0, width - blockSize*n, height);
 }
-
 
 function mousePressed() {
   piecePicked = board.pick();

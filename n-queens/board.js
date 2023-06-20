@@ -9,8 +9,9 @@ const colors = {
 
 
 class Board {
-  constructor(n, blockSize, fix = []) {
+  constructor(n, blockSize, scale, fix = []) {
     this.n = n;
+    this.scale = scale;
 
     this.queen = loadImage('assets/queen.png');
     this.blockSize = blockSize;
@@ -18,6 +19,10 @@ class Board {
     this.fixed = fix;
     this.movable = [[n, n-1], [n, n-2], [n, n-3], [n, n-4]];
     this.picked = null;
+  }
+
+  setScale(scale) {
+    this.scale = scale;
   }
 
   show(showRay = false) {
@@ -62,7 +67,7 @@ class Board {
     if (this.picked) {
       let x = this.picked[0];
       let y = this.picked[1];
-      image(this.queen, mouseX - this.blockSize / 2, mouseY - this.blockSize / 2, this.blockSize, this.blockSize);
+      image(this.queen, mouseX / this.scale - this.blockSize / 2, mouseY / this.scale - this.blockSize / 2, this.blockSize, this.blockSize);
     }
   }
 
@@ -89,7 +94,7 @@ class Board {
   }
 
   pick() {
-    let mousePos = createVector(mouseX, mouseY);
+    let mousePos = createVector(mouseX / this.scale, mouseY / this.scale);
     for (let i = 0; i < this.movable.length; i++) {
       let pos = createVector(this.movable[i][0] * this.blockSize + this.blockSize / 2, this.movable[i][1] * this.blockSize + this.blockSize / 2);
       if (mousePos.dist(pos) < this.blockSize / 2) {
@@ -105,7 +110,7 @@ class Board {
   }
 
   place() {
-    let mousePos = createVector(mouseX, mouseY);
+    let mousePos = createVector(mouseX / this.scale, mouseY / this.scale);
     if (mousePos.x < 0 || mousePos.x > this.n * this.blockSize || mousePos.y < 0 || mousePos.y > this.n * this.blockSize) {
       this.movable.push(this.picked);
       this.picked = null;
