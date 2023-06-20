@@ -38,7 +38,7 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
+  let params = getURLParams();
   csp = new CSP();
 
   prev = createButton('قبلی');
@@ -54,13 +54,15 @@ function setup() {
   next.style('font-size', '13px');
   next.mousePressed(nextState);
 
-  mrv = createCheckbox('انتخاب ترسناک‌ترین متغیر', true);
+  mrv = createCheckbox('انتخاب ترسناک‌ترین متغیر', false);
   mrv.style('font-family', 'vazir');
   mrv.style('font-size', '13px');
+  mrv.style('display', Boolean(params.mrv) ? 'block' : 'none');
   mrv.changed(mrvChanged);
-  lcv = createCheckbox('انتخاب بی‌دردسر‌ترین مقدار', true);
+  lcv = createCheckbox('انتخاب بی‌دردسر‌ترین مقدار', false);
   lcv.style('font-family', 'vazir');
   lcv.style('font-size', '13px');
+  lcv.style('display', Boolean(params.lcv) ? 'block' : 'none');
   lcv.changed(lcvChanged);
   sel = createSelect();
   sel.style('font-family', 'vazir');
@@ -246,12 +248,12 @@ class GraphState {
         return;
       }
       Object.values(COLORS).filter(color => domain.includes(color)).forEach((color, j) => {
-          fill(color);
-          circle(
-            (node.pos.x * windowWidth) + domainDiameter * (j - (domain.length - 1) / 2),
-            (node.pos.y * windowHeight) + nodeDiameter / 2 + domainDiameter / 2,
-            domainDiameter
-          );
+        fill(color);
+        circle(
+          (node.pos.x * windowWidth) + domainDiameter * (j - (domain.length - 1) / 2),
+          (node.pos.y * windowHeight) + nodeDiameter / 2 + domainDiameter / 2,
+          domainDiameter
+        );
       });
     });
     const arrowDiameter = windowHeight * windowWidth / 160000 + 5;

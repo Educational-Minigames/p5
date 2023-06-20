@@ -30,7 +30,6 @@ function windowResized() {
 
 function setup() {
   let params = getURLParams();
-  console.log(params);
   n = Number(params.n) || 8;
   blockSize = 80;
   showRay = false;
