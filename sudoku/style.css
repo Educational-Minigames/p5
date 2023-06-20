@@ -103,7 +103,7 @@ input[type=checkbox] {
 }
 
 .sudoku-item {
-  border: 1px solid black;
+  border: 2px solid black;
   text-align: center;
   line-height: 2rem;
 }
@@ -117,34 +117,34 @@ input[type=checkbox] {
 }
 
 .sudoku-item:nth-child(3n) {
-  border-right: 3px solid black;
+  border-right: 4px solid black;
 }
 
 .sudoku-item:nth-child(9n) {
-  border: 1px solid black;
+  border: 2px solid black;
 }
 
 .sudoku-item:nth-child(n+19):nth-child(-n+27) {
-  border-bottom: 3px solid black;
+  border-bottom: 4px solid black;
 }
 
 .sudoku-item:nth-child(n+46):nth-child(-n+54) {
-  border-bottom: 3px solid black;
+  border-bottom: 4px solid black;
 }
 
-@media screen and (min-aspect-ratio: 4/3) and (max-height: 900px) {
+@media screen and (min-aspect-ratio: 1/1) and (max-height: 800px) {
   .container {
     scale: 0.6;
   }
 }
 
-@media screen and (min-aspect-ratio: 4/3) and (max-height: 500px) {
+@media screen and (min-aspect-ratio: 1/1) and (max-height: 490px) {
   .container {
-    scale: 0.3;
+    scale: 0.4;
   }
 }
 
-@media screen and (max-aspect-ratio: 4/3) and (max-width: 1000px) {
+@media screen and (max-aspect-ratio: 1/1) and (max-width: 1000px) {
   .container {
     flex-direction: column;
     scale: 0.6;
@@ -156,10 +156,10 @@ input[type=checkbox] {
   }
 }
 
-@media screen and (max-aspect-ratio: 4/3) and (max-width: 600px) {
+@media screen and (max-aspect-ratio: 1/1) and (max-width: 600px) {
   .container {
     flex-direction: column;
-    scale: 0.3;
+    scale: 0.4;
   }
 
   .panel {

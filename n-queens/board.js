@@ -9,15 +9,15 @@ const colors = {
 
 
 class Board {
-  constructor(n, blockSize, scale, fix = []) {
+  constructor(n, blockSize, scale, fixed = []) {
     this.n = n;
     this.scale = scale;
 
     this.queen = loadImage('assets/queen.png');
     this.blockSize = blockSize;
 
-    this.fixed = fix;
-    this.movable = [[n, n-1], [n, n-2], [n, n-3], [n, n-4]];
+    this.fixed = fixed;
+    this.movable = Array(n - fixed.length).fill(0).map((_, index) => [n, n - index - 1]);
     this.picked = null;
   }
 
@@ -139,7 +139,7 @@ class Board {
   }
 
   reset() {
-    this.movable = [[n, n-1], [n, n-2], [n, n-3], [n, n-4]];
+    this.movable = Array(this.n - this.fixed.length).fill(0).map((_, index) => [this.n, this.n - index - 1]);
   }
 
   showRays() {

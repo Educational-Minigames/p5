@@ -63,9 +63,9 @@ button {
   }
 }
 
-@media screen and (min-aspect-ratio: 4/3) and (max-height: 500px) {
+@media screen and (min-aspect-ratio: 4/3) and (max-height: 450px) {
   main {
-    scale: 0.3;
+    scale: 0.4;
   }
 }
 
@@ -77,6 +77,6 @@ button {
 
 @media screen and (max-aspect-ratio: 4/3) and (max-width: 600px) {
   main {
-    scale: 0.3;
+    scale: 0.4;
   }
 }

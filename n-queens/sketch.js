@@ -21,6 +21,7 @@ window.onload = function () {
   windowScale = windowScale === "none" ? 1 : windowScale;
 }
 
+
 function windowResized() {
   windowScale = window.getComputedStyle(document.getElementById('main'), null).getPropertyValue('scale');
   windowScale = windowScale === "none" ? 1 : windowScale;
@@ -28,11 +29,13 @@ function windowResized() {
 }
 
 function setup() {
-  n = 8;
+  let params = getURLParams();
+  console.log(params);
+  n = Number(params.n) || 8;
   blockSize = 80;
   showRay = false;
   piecePicked = false;
-  fixed = [[4, 0], [1, 1], [3, 2], [6, 3]];
+  fixed = n === 8 ? [[4, 0], [1, 1], [3, 2], [6, 3]] : [[1, 0]];
   createCanvas((n + 1) * blockSize, n * blockSize);
   board = new Board(n, blockSize, windowScale, fixed);
   select('#reset').mousePressed(() => {
