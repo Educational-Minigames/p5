@@ -70,10 +70,13 @@ input[type=checkbox] {
 .sudoku-container {
   z-index: 1;
   display: grid;
-  grid-template-rows: repeat(9, 2rem);
-  grid-template-columns: repeat(9, 2rem);
+  /* grid-template-rows: repeat(9, 2rem);
+  grid-template-columns: repeat(9, 2rem); */
   column-gap: 0px;
   row-gap: 0px;
+  border: 2px solid black;
+  height: fit-content;
+  width: fit-content;
 }
 
 .sudoku-mask {
@@ -81,8 +84,9 @@ input[type=checkbox] {
   position: absolute;
   top: 1rem;
   display: grid;
-  grid-template-rows: repeat(9, 2rem);
-  grid-template-columns: repeat(9, 2rem);
+  /* grid-template-rows: repeat(9, 2rem);
+  grid-template-columns: repeat(9, 2rem); */
+  border: 2px solid transparent;
   column-gap: 0px;
   row-gap: 0px;
 }
@@ -90,9 +94,11 @@ input[type=checkbox] {
 .mask-item {
   padding: 0.1rem;
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
+  /* grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); */
   justify-content: center;
+  border: 2px solid transparent;
+
 }
 
 .domain {
@@ -114,22 +120,6 @@ input[type=checkbox] {
 
 .sudoku-item:focus {
   background-color: #188eb950;
-}
-
-.sudoku-item:nth-child(3n) {
-  border-right: 4px solid black;
-}
-
-.sudoku-item:nth-child(9n) {
-  border: 2px solid black;
-}
-
-.sudoku-item:nth-child(n+19):nth-child(-n+27) {
-  border-bottom: 4px solid black;
-}
-
-.sudoku-item:nth-child(n+46):nth-child(-n+54) {
-  border-bottom: 4px solid black;
 }
 
 @media screen and (min-aspect-ratio: 1/1) and (max-height: 800px) {
