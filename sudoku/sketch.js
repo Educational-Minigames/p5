@@ -1,7 +1,7 @@
 const params = new URLSearchParams(window.location.search)
 const dem = Number(params.get('n')) || 9;
 
-const numbers = dem == 9 ? [
+const numbers = dem === 9 ? [
   [5, 1, 7, 6, 0, 0, 0, 3, 4],
   [2, 8, 9, 0, 0, 4, 0, 0, 0],
   [3, 4, 6, 2, 0, 5, 0, 9, 0],
@@ -216,6 +216,15 @@ function printConflicts(numbers) {
     }
   }
 
+  if (dem === 6) {
+    for (let i = 0; i < dem; i++) {
+      let item = mask.children.item(i * dem + i);
+      item.style.backgroundColor = "#22222230";
+      item = mask.children.item(i * dem + dem - 1 - i);
+      item.style.backgroundColor = "#22222230";
+    }
+  }
+
   if (!showConflicts) {
     return;
   }
@@ -265,6 +274,48 @@ function printConflicts(numbers) {
       }
     }
 
+  }
+  
+  if (dem === 6) {
+    let hasConflictInDiagonal = false;
+
+    for (let i = 0; i < dem; i++) {
+      const a = numbers[i][i];
+      for (let j = 0; j < dem; j++) {
+        const b = numbers[j][j];
+        if (a !== 0 && a === b && i !== j) {
+          hasConflictInDiagonal = true;
+          break;
+        }
+      }
+    }
+
+    if (hasConflictInDiagonal) {
+      for (let i = 0; i < dem; i++) {
+        let item = mask.children.item(i * dem + i);
+        item.style.backgroundColor = "#ff525260";
+      }
+    }
+
+    hasConflictInDiagonal = false;
+
+    for (let i = 0; i < dem; i++) {
+      const a = numbers[i][dem - 1 - i];
+      for (let j = 0; j < dem; j++) {
+        const b = numbers[j][dem - 1 - j];
+        if (a !== 0 && a === b && i !== j) {
+          hasConflictInDiagonal = true;
+          break;
+        }
+      }
+    }
+
+    if (hasConflictInDiagonal) {
+      for (let i = 0; i < dem; i++) {
+        let item = mask.children.item(i * dem + dem - 1 - i);
+        item.style.backgroundColor = "#ff525260";
+      }
+    }
   }
 }
 
