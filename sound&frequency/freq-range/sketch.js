@@ -10,17 +10,18 @@ function preload() {
 }
 function setup() {
   textFont("bkamran");
+  createCanvas(800, 400);
   isPlaying = true;
   pauseButton = createButton("pause/start");
+  pauseButton.position(10, height - 40);
   
   graph = new Graph(x => sin(x), 0.00001, color(255, 0, 0), 2, true);
   axes = new Axes(10, 220, 725, 100, [0.02, 1], [1, 1]);
-  freqSlider = createSlider(1, 25000, 1);
+  freqSlider = createSlider(1, 24000, 1);
   freqSlider.style('width', '605px');
   freqSlider.position(10,20);
   ampSlider = createSlider(0, 1, 0, 0.1);
   ampSlider.position(10, 60);
-  createCanvas(800, 400);
   pauseButton.mousePressed(() => {
     if (isPlaying) {
       graph.osc.stop();

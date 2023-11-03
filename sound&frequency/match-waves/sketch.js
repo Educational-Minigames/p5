@@ -133,13 +133,14 @@ function setGraphs() {
 
 
 function mousePressed() {
-  if(win) {
-    win = false;
-    let tmp = setGraphs();
-    table1.setGoal([tmp[0]]);
-    table2.setGoal([tmp[1]]);
-    return;
-  }
+  // console.log(win);
+  // if(win) {
+  //   win = false;
+  //   let tmp = setGraphs();
+  //   table1.setGoal([tmp[0]]);
+  //   table2.setGoal([tmp[1]]);
+  //   return;
+  // }
   let tmp1 = table2.mouseClicked(isPlaying2 || isPlaying);
   let tmp2 = table1.mouseClicked(isPlaying1 || isPlaying);
 }

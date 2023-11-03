@@ -139,10 +139,12 @@ class Table {
     for(let i = 0; i < this.oscillators.length; i++) {
         this.oscillators[i].amp(0);
     }
+    // console.log("here");
   }
   play() {
     for(let i = 0; i < this.oscillators.length; i++) {
         this.oscillators[i].amp(this.graphs[i].multiplier);
+        this.oscillators[i].start();
     }
   }
 }
