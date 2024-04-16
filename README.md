@@ -2,4 +2,4 @@
 
 Live demos can be accessed by the following pattern: *p5.darkube.app/[directory]*
 
-Example: [https://p5.darkube.app/sudoku/](https://p5.darkube.app/sudoku/)
+Example: [https://educational-minigames.github.io/p5/sudoku/](https://educational-minigames.github.io/p5/sudoku/)
